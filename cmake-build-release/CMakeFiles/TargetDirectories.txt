@@ -1,0 +1,7 @@
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/template.dir
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/edit_cache.dir
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/rebuild_cache.dir
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/list_install_components.dir
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/install.dir
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/install/local.dir
+/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/CMakeFiles/install/strip.dir
