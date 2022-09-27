@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "options_parser.h"
+#include "vector"
 
 int write_buffer (int fd, const char* buffer , ssize_t size , int* status ){
     ssize_t written_bytes = 0;
@@ -29,11 +30,14 @@ int write_buffer (int fd, const char* buffer , ssize_t size , int* status ){
 int read_buffer (int fd, char* buffer , ssize_t size , int* status ){
     ssize_t read_bytes = 0;
     while( read_bytes < size ) {
+        printf("1: %zd\n", read_bytes);
         ssize_t read_now = read(fd, buffer + read_bytes, size - read_bytes );
+        printf("2: %zd\n", read_now);
         if( read_now == -1){
             if (errno == EINTR)
                 continue;
             else{
+                // check if status == 0
                 *status = errno;
                 return -1;
             }
@@ -42,8 +46,10 @@ int read_buffer (int fd, char* buffer , ssize_t size , int* status ){
         }
         else
             read_bytes += read_now;
+
     }
-    return 0;
+
+    return read_bytes;
 }
 
 int open(const char *pathname, int* status) {
@@ -57,7 +63,7 @@ int open(const char *pathname, int* status) {
                 return -1;
             }
         }else {
-            return 0;
+            return fd;
         }
     }
 }
@@ -78,21 +84,34 @@ int close(int fd, int* status){
     }
 }
 
+
 char buf[512];
 int* status;
 
 void cat(int fd) {
     int n;
-    while((n = read_buffer(fd, buf, sizeof(buf), status)) > -1) {
-        if (write_buffer(1, buf, sizeof(buf), status) != 0) {
-            write_buffer(2, "cat: write error\n", 17, status);
+
+    while(true) {
+//    for(int r = 0; r < 3; r++) {
+        memset(buf, 0, 512); // empty buffer
+        n = read_buffer(fd, buf, sizeof(buf), status);
+        printf("\nHere. n = %d\n", n);
+
+        if(n == -1){
+            write_buffer(2, "cat: read error\n", 16, status);
+            exit(2);
+        } else if (n == 0) {
+            if (write_buffer(1, buf, sizeof(buf), status) != 0) {
+                write_buffer(2, "cat: write error\n", 17, status);
+            }
             return;
+        } else {
+            if (write_buffer(1, buf, sizeof(buf), status) != 0) {
+                write_buffer(2, "cat: write error\n", 17, status);
+            }
         }
     }
-    if(n == -1){
-        write_buffer(2, "cat: read error\n", 16, status);
-        return;
-    }
+    return;
 }
 
 
@@ -104,14 +123,23 @@ int main(int argc, char* argv[]) {
     if(argc <= 1){
         return 0;
     }
+    std::vector<int> filesd(argc);
 
-    for(i = 1; i < argc; i++){
+    for(i = 1; i < argc; i++) {
         if((fd = open(argv[i], status)) < 0){
-            write_buffer(2, reinterpret_cast<const char *>(sprintf("cat: cannot open %s\n", argv[i])), 50, status);
-            return 0;
+            write_buffer(2, reinterpret_cast<const char *>(printf("cat: cannot open %s\n", argv[i])), 50, status);
+            return 1;
         }
-        cat(fd);
-        close(fd, status);
+        else {
+            printf("fd=%d\n", fd);
+            filesd[i] = fd;
+        }
     }
+
+    for(i = 1; i < argc; i++) {
+        cat(filesd[i]);
+        close(filesd[i], status);
+    }
+
     return 0;
 }
