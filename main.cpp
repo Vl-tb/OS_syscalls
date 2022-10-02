@@ -30,9 +30,7 @@ int write_buffer (int fd, const char* buffer , ssize_t size , int* status ){
 int read_buffer (int fd, char* buffer , ssize_t size , int* status ){
     ssize_t read_bytes = 0;
     while( read_bytes < size ) {
-        printf("1: %zd\n", read_bytes);
         ssize_t read_now = read(fd, buffer + read_bytes, size - read_bytes );
-        printf("2: %zd\n", read_now);
         if( read_now == -1){
             if (errno == EINTR)
                 continue;
@@ -92,10 +90,8 @@ void cat(int fd) {
     int n;
 
     while(true) {
-//    for(int r = 0; r < 3; r++) {
         memset(buf, 0, 512); // empty buffer
         n = read_buffer(fd, buf, sizeof(buf), status);
-        printf("\nHere. n = %d\n", n);
 
         if(n == -1){
             write_buffer(2, "cat: read error\n", 16, status);
@@ -131,7 +127,6 @@ int main(int argc, char* argv[]) {
             return 1;
         }
         else {
-            printf("fd=%d\n", fd);
             filesd[i] = fd;
         }
     }
