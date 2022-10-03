@@ -8,6 +8,13 @@
 #include "vector"
 #include <stdio.h>
 
+enum ERRORS {
+    OPEN_CLOSE_ERROR = -1,
+    READ_ERROR = -2,
+    WRITE_ERROR = -3
+};
+
+
 int write_buffer (int fd, const char* buffer , ssize_t size){
     ssize_t written_bytes = 0;
     while( written_bytes < size ) {
@@ -16,7 +23,7 @@ int write_buffer (int fd, const char* buffer , ssize_t size){
             if (errno == EINTR)
                 continue;
             else{
-                return -3;
+                return WRITE_ERROR;
             }
         }else if (written_now == 0){
             return 0;
@@ -35,7 +42,7 @@ ssize_t read_buffer (int fd, char* buffer , ssize_t size){
             if (errno == EINTR)
                 continue;
             else{
-                return -2;
+                return READ_ERROR;
             }
         }else if (read_now == 0){
 
@@ -57,7 +64,7 @@ int myopen(const char *pathname) {
                 continue;
             }
             else {
-                return -1;
+                return OPEN_CLOSE_ERROR;
             }
 
         }else {
@@ -73,7 +80,7 @@ int myclose(int fd){
             if (errno == EINTR)
                 continue;
             else {
-                return -1;
+                return OPEN_CLOSE_ERROR;
             }
         }else {
             return 0;
@@ -114,12 +121,12 @@ void mycat(int fd, bool A_flag) {
             if (!A_flag) {
                 if (write_buffer(1, buf, n) != 0) {
                     write_buffer(2, "cat: write error\n", 17);
-                    exit(-3);
+                    exit(WRITE_ERROR);
                 }
             } else {
                 if (write_buffer(1, pid_buf, n_hex) != 0) {
                     write_buffer(2, "cat: write error\n", 17);
-                    exit(-3);
+                    exit(WRITE_ERROR);
                 }
             }
 
@@ -146,7 +153,7 @@ int main(int argc, char* argv[]) {
         }
         if((fd = myopen(argv[i])) < 0){
             std::cout << "cat: cannot open " << argv[i] << std::endl;
-            return -1;
+            return OPEN_CLOSE_ERROR;
         }
         else {
             filesd[i] = fd;
