@@ -8,16 +8,15 @@
 #include "vector"
 #include <stdio.h>
 
-int write_buffer (int fd, const char* buffer , ssize_t size , int* status ){
+int write_buffer (int fd, const char* buffer , ssize_t size){
     ssize_t written_bytes = 0;
     while( written_bytes < size ) {
         ssize_t written_now = write(fd, buffer + written_bytes, size - written_bytes );
         if( written_now == -1){
             if (errno == EINTR)
-            continue;
+                continue;
             else{
-                *status = errno;
-                return -1;
+                return -3;
             }
         }else if (written_now == 0){
             return 0;
@@ -28,7 +27,7 @@ int write_buffer (int fd, const char* buffer , ssize_t size , int* status ){
     return 0;
 }
 
-int read_buffer (int fd, char* buffer , ssize_t size , int* status ){
+ssize_t read_buffer (int fd, char* buffer , ssize_t size){
     ssize_t read_bytes = 0;
     while( read_bytes < size ) {
         ssize_t read_now = read(fd, buffer + read_bytes, size - read_bytes );
@@ -36,22 +35,20 @@ int read_buffer (int fd, char* buffer , ssize_t size , int* status ){
             if (errno == EINTR)
                 continue;
             else{
-                // check if status == 0
-                *status = errno;
-                return -1;
+                return -2;
             }
         }else if (read_now == 0){
-            return 0;
+
+            return read_bytes;
         }
         else
             read_bytes += read_now;
 
     }
-
     return read_bytes;
 }
 
-int open(const char *pathname, int* status) {
+int myopen(const char *pathname) {
     while (true){
         int fd = open(pathname, 0);
         if (fd < 0) {
@@ -60,8 +57,6 @@ int open(const char *pathname, int* status) {
                 continue;
             }
             else {
-                *status = errno;
-
                 return -1;
             }
 
@@ -71,14 +66,13 @@ int open(const char *pathname, int* status) {
     }
 }
 
-int close(int fd, int* status){
+int myclose(int fd){
     while (true){
         int rt = close(fd);
         if (rt < 0) {
             if (errno == EINTR)
                 continue;
             else {
-                *status = errno;
                 return -1;
             }
         }else {
@@ -88,61 +82,49 @@ int close(int fd, int* status){
 }
 
 
-char buf[102400];
-char pid_buf[409600];
-size_t pid_ind = 0;
-int val = 0;
-int* status = &val;
+char buf[10240];
+char pid_buf[40960];
 
-void cat(int fd, bool A_flag) {
-    int n;
+void mycat(int fd, bool A_flag) {
+    ssize_t n;
 
     while(true) {
-        memset(buf, 0, 102400); // empty buffer
-        memset(pid_buf, 0, 409600);
-        n = read_buffer(fd, buf, sizeof(buf), status);
-
+        size_t pid_ind = 0;
+        n = read_buffer(fd, buf, sizeof(buf));
+        ssize_t n_hex = n;
         if (A_flag) {
 
-            for(size_t s = 0; s < 102400; ++s) {
-                  if (!isprint(buf[s])) {
-                      if (!isspace(buf[s])) {
-                          sprintf(pid_buf + pid_ind, "\\x%02X", buf[s]);
-                          pid_ind += 4;
-                      }
-                  }
-                  pid_buf[pid_ind] = buf[s];
-                  ++pid_ind;
+            for(ssize_t s = 0; s < n; ++s) {
+                if ((!isprint(buf[s])) && (!isspace(buf[s]))) {
+                    sprintf(pid_buf + pid_ind, "\\x%02X", static_cast<unsigned char >(buf[s]));
+                    pid_ind += 4;
+                    n_hex += 3;
+                }
+                else{
+                    pid_buf[pid_ind] = buf[s];
+                    ++pid_ind;
+                }
 
             }
-            pid_ind = 0;
         }
-        printf("here\n");
-
         if(n == -1){
-            write_buffer(2, "cat: read error\n", 16, status);
-            exit(2);
-        } else if (n == 0) {
-//            if (!A_flag) {
-                if (write_buffer(1, buf, sizeof(buf), status) != 0) {
-                    write_buffer(2, "cat: write error\n", 17, status);
+            write_buffer(2, "cat: read error\n", 16);
+            exit(-2);
+        } else if (n > 0) {
+            if (!A_flag) {
+                if (write_buffer(1, buf, n) != 0) {
+                    write_buffer(2, "cat: write error\n", 17);
+                    exit(-3);
                 }
-//            } else {
-//                if (write_buffer(1, pid_buf, sizeof(buf), status) != 0) {
-//                    write_buffer(2, "cat: write error\n", 17, status);
-//                }
-//            }
-            return;
+            } else {
+                if (write_buffer(1, pid_buf, n_hex) != 0) {
+                    write_buffer(2, "cat: write error\n", 17);
+                    exit(-3);
+                }
+            }
+
         } else {
-//            if (!A_flag) {
-                if (write_buffer(1, buf, sizeof(buf), status) != 0) {
-                    write_buffer(2, "cat: write error\n", 17, status);
-                }
-//            } else {
-//                if (write_buffer(1, pid_buf, sizeof(buf), status) != 0) {
-//                    write_buffer(2, "cat: write error\n", 17, status);
-//                }
-//            }
+            return;
         }
     }
 }
@@ -151,7 +133,6 @@ void cat(int fd, bool A_flag) {
 int main(int argc, char* argv[]) {
     command_line_options_t command_line_options{argc, argv};
     bool A_flag = command_line_options.get_A_flag();
-    std::cout << "A flag value: " << A_flag << std::endl;
     int fd, i;
 
     if(argc <= 1){
@@ -163,9 +144,8 @@ int main(int argc, char* argv[]) {
         if (!strcmp(argv[i], "-A")) {
             continue;
         }
-        if((fd = open(argv[i], status)) < 0){
-            write_buffer(2, reinterpret_cast<const char *>(printf("cat: cannot open %s\n", argv[i])), 50, status);
-
+        if((fd = myopen(argv[i])) < 0){
+            std::cout << "cat: cannot open " << argv[i] << std::endl;
             return -1;
         }
         else {
@@ -177,8 +157,8 @@ int main(int argc, char* argv[]) {
         if (!strcmp(argv[i], "-A")) {
             continue;
         }
-        cat(filesd[i], A_flag);
-        close(filesd[i], status);
+        mycat(filesd[i], A_flag);
+        myclose(filesd[i]);
     }
 
     return 0;

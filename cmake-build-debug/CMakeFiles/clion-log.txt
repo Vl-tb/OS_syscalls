@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko -B /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls -B /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug
 -- The C compiler identification is AppleClang 14.0.0.14000029
 -- The CXX compiler identification is AppleClang 14.0.0.14000029
 -- Detecting C compiler ABI info
@@ -16,4 +16,4 @@
 - UCU.APPS.CS: Consider enabling PVS-Studio in CMakeLists.txt by 'set(ENABLE_PVS_STUDIO ON)' flag or use Windows PVS Studio GUI.
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug
+-- Build files have been written to: /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug

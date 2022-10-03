@@ -1,4 +1,4 @@
-# Install script for directory: /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko
+# Install script for directory: /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE PROGRAM FILES "/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/template")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE PROGRAM FILES "/Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-release/mycat")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -49,5 +49,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

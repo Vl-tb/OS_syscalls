@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: template
+# Project: mycat
 # Configurations: Debug
 # =============================================================================
 
@@ -39,60 +39,60 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug/
+cmake_ninja_workdir = /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target template
+# Object build statements for EXECUTABLE target mycat
 
 
 #############################################
-# Order-only phony target for template
+# Order-only phony target for mycat
 
-build cmake_object_order_depends_target_template: phony || CMakeFiles/template.dir
+build cmake_object_order_depends_target_mycat: phony || CMakeFiles/mycat.dir
 
-build CMakeFiles/template.dir/main.cpp.o: CXX_COMPILER__template_Debug /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/main.cpp || cmake_object_order_depends_target_template
+build CMakeFiles/mycat.dir/main.cpp.o: CXX_COMPILER__mycat_Debug /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/main.cpp || cmake_object_order_depends_target_mycat
   DEFINES = -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB
-  DEP_FILE = CMakeFiles/template.dir/main.cpp.o.d
+  DEP_FILE = CMakeFiles/mycat.dir/main.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wextra -Werror=vla -std=gnu++17
-  INCLUDES = -I/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/options_parser -isystem /opt/homebrew/include
-  OBJECT_DIR = CMakeFiles/template.dir
-  OBJECT_FILE_DIR = CMakeFiles/template.dir
-  TARGET_COMPILE_PDB = CMakeFiles/template.dir/
-  TARGET_PDB = template.pdb
+  INCLUDES = -I/Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/options_parser -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/mycat.dir
+  OBJECT_FILE_DIR = CMakeFiles/mycat.dir
+  TARGET_COMPILE_PDB = CMakeFiles/mycat.dir/
+  TARGET_PDB = mycat.pdb
 
-build CMakeFiles/template.dir/options_parser/options_parser.cpp.o: CXX_COMPILER__template_Debug /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/options_parser/options_parser.cpp || cmake_object_order_depends_target_template
+build CMakeFiles/mycat.dir/options_parser/options_parser.cpp.o: CXX_COMPILER__mycat_Debug /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/options_parser/options_parser.cpp || cmake_object_order_depends_target_mycat
   DEFINES = -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB
-  DEP_FILE = CMakeFiles/template.dir/options_parser/options_parser.cpp.o.d
+  DEP_FILE = CMakeFiles/mycat.dir/options_parser/options_parser.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wextra -Werror=vla -std=gnu++17
-  INCLUDES = -I/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/options_parser -isystem /opt/homebrew/include
-  OBJECT_DIR = CMakeFiles/template.dir
-  OBJECT_FILE_DIR = CMakeFiles/template.dir/options_parser
-  TARGET_COMPILE_PDB = CMakeFiles/template.dir/
-  TARGET_PDB = template.pdb
+  INCLUDES = -I/Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/options_parser -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/mycat.dir
+  OBJECT_FILE_DIR = CMakeFiles/mycat.dir/options_parser
+  TARGET_COMPILE_PDB = CMakeFiles/mycat.dir/
+  TARGET_PDB = mycat.pdb
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target template
+# Link build statements for EXECUTABLE target mycat
 
 
 #############################################
-# Link the executable template
+# Link the executable mycat
 
-build template: CXX_EXECUTABLE_LINKER__template_Debug CMakeFiles/template.dir/main.cpp.o CMakeFiles/template.dir/options_parser/options_parser.cpp.o | /opt/homebrew/lib/libboost_program_options-mt.dylib /opt/homebrew/lib/libboost_system-mt.dylib
+build mycat: CXX_EXECUTABLE_LINKER__mycat_Debug CMakeFiles/mycat.dir/main.cpp.o CMakeFiles/mycat.dir/options_parser/options_parser.cpp.o | /opt/homebrew/lib/libboost_program_options-mt.dylib /opt/homebrew/lib/libboost_system-mt.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = /opt/homebrew/lib/libboost_program_options-mt.dylib  /opt/homebrew/lib/libboost_system-mt.dylib
-  OBJECT_DIR = CMakeFiles/template.dir
+  OBJECT_DIR = CMakeFiles/mycat.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/template.dir/
-  TARGET_FILE = template
-  TARGET_PDB = template.pdb
+  TARGET_COMPILE_PDB = CMakeFiles/mycat.dir/
+  TARGET_FILE = mycat
+  TARGET_PDB = mycat.pdb
 
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -103,7 +103,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko -B/Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug
+  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls -B/Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -121,7 +121,7 @@ build list_install_components: phony
 # Utility command for install
 
 build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
   DESC = Install the project...
   pool = console
   restat = 1
@@ -133,7 +133,7 @@ build install: phony CMakeFiles/install.util
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -145,7 +145,7 @@ build install/local: phony CMakeFiles/install/local.util
 # Utility command for install/strip
 
 build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  COMMAND = cd /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
   DESC = Installing the project stripped...
   pool = console
   restat = 1
@@ -161,9 +161,9 @@ build install/strip: phony CMakeFiles/install/strip.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/vladprotsenko/Documents/OS/labs/lab_2/lab2_mycat-protsenko_konstantynenko/cmake-build-debug
+# Folder: /Users/vladprotsenko/Documents/OS/labs/lab_2/OS_syscalls/cmake-build-debug
 
-build all: phony template
+build all: phony mycat
 
 # =============================================================================
 # Built-in targets
